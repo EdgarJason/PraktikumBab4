@@ -1,0 +1,237 @@
+import java.util.Scanner;
+
+// SOAL 2 PRAKTIKUM PEMDAS ARRAY - TIKET KERETA
+// EDGAR JASON HUSIN
+// 245150201111047
+// KELAS F - TIF
+
+public class EdgarJasonHusin2 {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+
+        int nilai, inc=0,incVerif=0;
+        String pilihan;
+
+        String[][] array = {
+                {"Ekonomi", "Bisnis", "Eksekutif", "Pariwisata"},
+                {"50000", "100000", "200000", "300000"},
+                {"2", "5", "7", "10"},
+                {"Tidak ada", "Ada", "Ada", "Ada"},
+                {"Tidak ada", "Tidak ada", "Tidak ada", "Ada"}
+        };
+
+        //kuota pesanan keseluruhan
+        String[] pesanan  = new String[100];
+
+        //untuk generate kode verifikasi
+        String[] kodeVerifikasi = new String[100];
+
+        //untuk kuota pesanan per kelas
+        int[][] kuotaPesanan  = {{25},{25},{25},{25}};
+
+        do {
+            System.out.println("""
+                    -------------------------------------------------------
+                    MENU
+                    1. Melihat Daftar Kereta Api
+                    2. Melihat Daftar Kereta Api yang ada AC
+                    3. Melihat Daftar Kereta Api yang ada Colokan
+                    4. Memesan Tiket Kereta Api
+                    5. Melihat Pesanan Tiket
+                    0. Keluar
+                    -------------------------------------------------------
+                    """);
+
+            System.out.print("Masukkan pilihan: ");
+            nilai = scan.nextInt();
+
+            switch (nilai) {
+                case 1 -> {
+                    System.out.println("Anda memilih daftar kereta api");
+                    System.out.println("Daftar Kereta Api yang tersedia adalah sebagai berikut");
+                    System.out.println("=========================================");
+                    System.out.printf("| %-12s | %-12s | %-7s |%n","Kelas","Harga","Kuota");
+                    System.out.println("=========================================");
+                    for (int i = 0; i < 4; i++) {
+                        System.out.printf("| %-12s | Rp%-10s | %-7d |%n",array[0][i],array[1][i],kuotaPesanan[i][0]);
+                    }
+                    System.out.println("=========================================");
+
+                }
+                case 2 -> {
+                    System.out.println("Anda memilih daftar kereta api yang ada ac");
+                    System.out.println("Daftar Kereta Api yang memiliki AC adalah sebagai berikut");
+                    System.out.println("===============================");
+                    System.out.printf("| %-12s | %-12s | %n","Kelas","Status");
+                    System.out.println("===============================");
+                    for (int i = 0; i < 4; i++) {
+                        System.out.printf("| %-12s | %-12s |%n",array[0][i],array[3][i]);
+                    }
+                    System.out.println("===============================");
+                }
+                case 3 -> {
+                    System.out.println("Anda memilih daftar kereta api yang ada colokan");
+                    System.out.println("Daftar Kereta Api yang tersedia colokan");
+                    System.out.println("===============================");
+                    System.out.printf("| %-12s | %-12s | %n","Kelas","Status");
+                    System.out.println("===============================");
+                    for (int i = 0; i < 4; i++) {
+                        System.out.printf("| %-12s | %-12s |%n",array[0][i],array[4][i]);
+                    }
+                    System.out.println("===============================");
+                }
+
+                case 4 -> {
+
+                    do {
+                        System.out.println("Anda memilih pemesanan tiket kereta api");
+                        System.out.println("Berikut adalah kelas dan harganya");
+                        System.out.println("=====================================");
+                        System.out.printf("| %-3s | %-12s | %-12s | %n","No.","Kelas","Harga");
+                        System.out.println("=====================================");
+                        for (int i = 0; i < 4; i++) {
+                            System.out.printf("| %-3d | %-12s | Rp%-10s |%n",(i+1),array[0][i],array[1][i]);
+                        }
+                        System.out.println("=====================================");
+
+                        System.out.print("Silahkan memilih (1/2/3/4) = ");
+                        int pilihanOrder = scan.nextInt();
+
+                        if(pilihanOrder<1 | pilihanOrder>4){
+                            System.out.println("Pilihan tidak valid, Silahkan ulangi!");
+                            break;
+                        }
+                        else if(inc>=100){
+                            System.out.println("Ups, kuota sudah habis!");
+                            break;
+                        }
+                        else if(kuotaPesanan[pilihanOrder-1][0]==0){
+                            System.out.println("Kelas yang Anda pilih sudah habis!");
+                            break;
+                        }
+
+                        String kelas = "",verif="";
+                        int harga = 0, disc = 0;
+
+                        //membuat kode unik seperti yang ada di boarding pass
+                        int random = (int) (Math.random() * 10000000)+4;
+
+                        switch (pilihanOrder) {
+                            case 1 -> {
+                                kelas = array[0][0];
+                                harga = Integer.parseInt(array[1][0]);
+                                disc = Integer.parseInt(array[2][0]);
+                                pesanan[inc++] = "Ekonomi";
+                                kuotaPesanan[0][0]--;
+                                verif = "EKO/"+inc+"/"+random;
+                                kodeVerifikasi[incVerif++] = verif;
+                            }
+                            case 2 -> {
+                                kelas = array[0][1];
+                                harga = Integer.parseInt(array[1][1]);
+                                disc = Integer.parseInt(array[2][1]);
+                                pesanan[inc++] = "Bisnis";
+                                kuotaPesanan[1][0]--;
+                                verif = "BIS/"+inc+"/"+random;
+                                kodeVerifikasi[incVerif++] = verif;
+                            }
+                            case 3 -> {
+                                kelas = array[0][2];
+                                harga = Integer.parseInt(array[1][2]);
+                                disc = Integer.parseInt(array[2][2]);
+                                pesanan[inc++] = "Eksekutif";
+                                kuotaPesanan[2][0]--;
+                                verif = "EKS/"+inc+"/"+random;
+                                kodeVerifikasi[incVerif++] = verif;
+                            }
+                            case 4 -> {
+                                kelas = array[0][3];
+                                harga = Integer.parseInt(array[1][3]);
+                                disc = Integer.parseInt(array[2][3]);
+                                pesanan[inc++] = "Pariwisata";
+                                kuotaPesanan[3][0]--;
+                                verif = "PAR/"+inc+"/"+random;
+                                kodeVerifikasi[incVerif++] = verif;
+                            }
+
+                        }
+
+                        double grandTotal = harga - (harga * ((double) disc / 100));
+
+                        System.out.printf("""
+                                \n=====================================
+                                KONFIRMASI PEMBAYARAN TIKET KERETA
+                                =====================================
+                                Kelas   = %s
+                                Harga   = Rp%d
+                                Diskon  = %d %% 
+                                =====================================
+                                GRAND TOTAL = Rp%.0f
+                                
+                                Kode Verifikasi :
+                                %s
+                                =====================================\n
+                                """, kelas, harga, disc, grandTotal,verif);
+
+                        grandTotal = 0;
+
+                        System.out.print("Apakah Anda ingin melakukan pemesanan kembali (Y/N) = ");
+                        pilihan  = scan.next();
+
+                        if(pilihan.equalsIgnoreCase("y")){
+                            System.out.println("""
+                                    Terima kasih telah memesan jasa kami!
+                                    Anda akan diarahkan ke halaman pemesanan.
+                                    """);
+                        }
+                        else if(pilihan.equalsIgnoreCase("n")){
+                            System.out.println("""
+                                    Terima kasih telah memesan jasa kami!
+                                    Anda akan diarahkan ke menu.
+                                    """);
+                        }
+                        else{
+                            System.out.println("Pilihan tidak valid! Silahkan ulangi!");
+                        }
+                    }
+                    while(pilihan.equalsIgnoreCase("y"));
+
+                }
+
+                case 5 -> {
+                    System.out.println("Anda memilih melihat pesanan tiket");
+                    System.out.println("Berikut adalah pesanan Anda");
+
+                    if(inc==0){
+                        System.out.println("Anda belum memesan, yuk pesan dulu di menu 4!");
+                    }
+                    else {
+                        System.out.println("================================================");
+                        System.out.printf("| %-3s | %-15s | %-20s |%n","No.","Kelas","Kode");
+                        System.out.println("================================================");
+                        for (int i = 0; i < inc; i++) {
+                            System.out.printf("| %-3d | %-15s | %-20s |%n",(i+1),pesanan[i],kodeVerifikasi[i]);
+                        }
+                        System.out.println("================================================");
+                        System.out.println("Total pesanan Anda saat ini = " + inc);
+                        System.out.println("================================================");
+                    }
+                }
+                case 0 -> {
+                    System.out.println("""
+                            Anda memilih keluar!
+                            Data akan terhapus setelah Anda keluar
+                            
+                            Program dihentikan.....
+                            """);
+                }
+                default -> {
+                    System.out.println("Pilihan tidak valid, silahkan ulangi!");
+                }
+            }
+        }
+        while (nilai != 0);
+    }
+}
+
+

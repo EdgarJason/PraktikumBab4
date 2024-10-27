@@ -1,0 +1,166 @@
+import java.util.Scanner;
+
+// SOAL 1 PRAKTIKUM PEMDAS ARRAY - DATA
+// EDGAR JASON HUSIN
+// 245150201111047
+// KELAS F - TIF
+
+public class EdgarJasonHusin1 {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n;
+        float total = 0;
+        int[] data = new int[100];
+        int dataSize = 0;
+
+        do {
+            System.out.println("""
+                    -----------------------------------------
+                    Menu :
+                    1. Input Data
+                    2. Lihat Data
+                    3. Average
+                    4. Sum
+                    5. Max
+                    6. Min
+                    0. Keluar
+                    -----------------------------------------
+                    """);
+
+            System.out.print("Masukkan pilihan : ");
+            n = scan.nextInt();
+            switch (n) {
+                // pilihan input data
+                case 1 -> {
+                    System.out.println("Anda memilih input data");
+                    System.out.println("Data saat ini berjumlah " + dataSize);
+
+                    if (dataSize >= 100) {
+                        System.out.println("""
+                                Data Anda sudah mencapai batas maksimal (100)
+                                Input lebih lanjut tidak diperbolehkan
+                                """);
+                        break;
+                    }
+
+                    System.out.print("Masukkan berapa data yang diinginkan = ");
+                    int p = scan.nextInt();
+                    if (p > 100) {
+                        System.out.println("""
+                                Input data melebihi batas maksimal!
+                                Mohon perhatikan batas maksimal data adalah 100
+                                """);
+                        break;
+                    }
+                    else if(p==0 | p<0){
+                        System.out.println("Input tidak valid! Silahkan ulangi!");
+                        break;
+                    }
+                    else if (p + dataSize > 100) {
+                        System.out.println("""
+                                Input data kelebihan!
+                                Mohon perhatikan batas maksimal data adalah 100
+                                Silahkan ulangi kembali!
+                                """);
+                        break;
+                    }
+                    System.out.println("Masukkan angka-angka tersebut : ");
+                    for (int i = 0; i < p; i++) {
+                        System.out.printf("Masukkan angka %d = ", i + 1);
+                        data[dataSize++] = scan.nextInt();
+                    }
+                }
+                // pilihan lihat data
+                case 2 -> {
+                    System.out.println("Anda memilih lihat data");
+                    if (dataSize == 0) {
+                        kasusJikaDataKosong();
+                    } else {
+                        int incData=0;
+                        System.out.println("Berikut adalah data Anda = ");
+                        System.out.println("Data saat ini berjumlah " + dataSize);
+
+                        for(int i=0; i<(dataSize/10)+1; i++) {
+                            for(int j=0; j<10; j++) {
+                                if(incData<dataSize){
+                                    System.out.printf("%-3d ",data[incData]);
+                                }
+                                incData++;
+                            }
+                            System.out.println();
+                        }
+                    }
+                }
+                // pilihan average
+                case 3 -> {
+                    System.out.println("Anda memilih average");
+                    if (dataSize == 0) {
+                        kasusJikaDataKosong();
+                    } else {
+                        for (int i = 0; i < dataSize; i++) {
+                            total += data[i];
+                        }
+                        System.out.println("Rata-rata data Anda adalah = " + (total / dataSize));
+                        total=0;
+                    }
+                }
+                // pilihan sum
+                case 4 -> {
+                    System.out.println("Anda memilih sum/penjumlahan");
+                    if (dataSize == 0) {
+                        kasusJikaDataKosong();
+                    } else {
+                        for (int i = 0; i < dataSize; i++) {
+                            total += data[i];
+                        }
+                        System.out.println("Total dari data Anda adalah = " + total);
+                        total=0;
+                    }
+                }
+                // pilihan nilai maksimal
+                case 5 -> {
+                    System.out.println("Anda memilih nilai maksimal");
+                    if (dataSize == 0) {
+                        kasusJikaDataKosong();
+                    } else {
+                        int max = data[0];
+                        for (int i = 1; i < dataSize; i++) {
+                            if (data[i] > max) {
+                                max = data[i];
+                            }
+                        }
+                        System.out.println("Nilai maksimal dari data Anda adalah = " + max);
+                    }
+                }
+                // pilihan nilai minimum
+                case 6 -> {
+                    System.out.println("Anda memilih nilai minimum");
+                    if (dataSize == 0) {
+                        kasusJikaDataKosong();
+                    } else {
+                        int min = data[0];
+                        for (int i = 1; i < dataSize; i++) {
+                            if (data[i] < min) {
+                                min = data[i];
+                            }
+                        }
+                        System.out.println("Nilai minimum dari data Anda adalah = " + min);
+                    }
+                }
+                // pilihan keluar
+                case 0 -> {
+                    System.out.println("Anda memilih keluar");
+                    System.out.println("Data akan terhapus ketika Anda keluar!");
+                    System.out.println("Program Dihentikan...");
+                }
+            }
+        } while (n != 0);
+    }
+
+    static void kasusJikaDataKosong() {
+        System.out.println("""
+                Data Anda masih kosong, yuk isi dulu di menu 1
+                Terima Kasih!
+                """);
+    }
+}

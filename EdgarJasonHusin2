@@ -49,15 +49,15 @@ public class EdgarJasonHusin2 {
                 case 1 -> {
                     System.out.println("Anda memilih daftar kereta api");
                     System.out.println("Daftar Kereta Api yang tersedia adalah sebagai berikut");
-                    System.out.println("=========================================");
-                    System.out.printf("| %-12s | %-12s | %-7s |%n","Kelas","Harga","Kuota");
-                    System.out.println("=========================================");
+                    System.out.println("=====================================================================");
+                    System.out.printf("| %-12s | %-12s | %-11s | %-11s | %-7s | %n","Kelas","Harga","AC","Colokan","Kuota");
+                    System.out.println("=====================================================================");
                     for (int i = 0; i < 4; i++) {
-                        System.out.printf("| %-12s | Rp%-10s | %-7d |%n",array[0][i],array[1][i],kuotaPesanan[i][0]);
+                        System.out.printf("| %-12s | Rp%-10s | %-11s | %-11s | %-7s | %n",array[0][i],array[1][i],array[3][i],array[4][i],kuotaPesanan[i][0]);
                     }
-                    System.out.println("=========================================");
-
+                    System.out.println("=====================================================================");
                 }
+
                 case 2 -> {
                     System.out.println("Anda memilih daftar kereta api yang ada ac");
                     System.out.println("Daftar Kereta Api yang memiliki AC adalah sebagai berikut");
@@ -65,7 +65,9 @@ public class EdgarJasonHusin2 {
                     System.out.printf("| %-12s | %-12s | %n","Kelas","Status");
                     System.out.println("===============================");
                     for (int i = 0; i < 4; i++) {
-                        System.out.printf("| %-12s | %-12s |%n",array[0][i],array[3][i]);
+                        if(array[3][i].equalsIgnoreCase("ada")){
+                            System.out.printf("| %-12s | %-12s | %n",array[0][i],array[3][i]);
+                        }
                     }
                     System.out.println("===============================");
                 }
@@ -76,7 +78,9 @@ public class EdgarJasonHusin2 {
                     System.out.printf("| %-12s | %-12s | %n","Kelas","Status");
                     System.out.println("===============================");
                     for (int i = 0; i < 4; i++) {
-                        System.out.printf("| %-12s | %-12s |%n",array[0][i],array[4][i]);
+                        if(array[4][i].equalsIgnoreCase("ada")) {
+                            System.out.printf("| %-12s | %-12s |%n", array[0][i], array[4][i]);
+                        }
                     }
                     System.out.println("===============================");
                 }

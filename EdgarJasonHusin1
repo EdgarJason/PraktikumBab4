@@ -153,6 +153,9 @@ public class EdgarJasonHusin1 {
                     System.out.println("Data akan terhapus ketika Anda keluar!");
                     System.out.println("Program Dihentikan...");
                 }
+                default -> {
+                    System.out.println("Pilihan tidak valid, Silahkan ulangi!");
+                }
             }
         } while (n != 0);
     }
